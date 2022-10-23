@@ -56,7 +56,7 @@ void set_width(string input_name){
 				word += line[i];
 			}
 		}
-		out_file << word << " ";
+		out_file << word; //end word
 		if (word[word.length() - 1] == '?') {
 			count = 0;
 			out_file << "\n";
