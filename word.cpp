@@ -9,15 +9,18 @@ void set_width(string input_name){
 	ifstream in_file;
         in_file.open(input_name);
 	
-	int width = 0;
-
-//GET FIRST LINE AND PUT IN INPUT
-
 	ofstream out_file;
 	out_file.open("output.txt");
 	
-	string first_line;
-	getline(in_file, first_line);
+	string int_line;
+	getline(in_file, int_line, ';');
+	int width = stoi(int_line);
+
+	string output_name;
+	getline(in_file, output_name, ';');
+
+	string junk;
+	getline(in_file, junk);
 
 	int count = 0;
 	string line;
@@ -25,7 +28,7 @@ void set_width(string input_name){
 		string word;
 		for (int i = 0; i < line.length(); i++) {
 			if (isspace(line[i])) {
-				if ((count + word.length() ) < 60) {
+				if ((count + word.length() ) < width) {
 					out_file << word << " ";
 					count += word.length() + 1;
 				}
