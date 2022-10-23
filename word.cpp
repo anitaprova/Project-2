@@ -1,3 +1,11 @@
+/*
+Author: Anita Prova
+Course: CSCI-135
+Instructor: Genady Maryash
+Assignment: Project 2
+The program fixes the formatting of a file. It makes it so that each line only accepts a certain amount of characters. 
+*/
+
 #include <iostream>
 #include <string> 
 #include <fstream>
