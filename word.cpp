@@ -17,9 +17,6 @@ void set_width(string input_name) {
 	ifstream in_file;
         in_file.open(input_name);
 
-        ofstream out_file;
-        out_file.open("output.txt");
-
 	string int_line;
         getline(in_file, int_line, ';');
         int width = stoi(int_line);
@@ -27,6 +24,9 @@ void set_width(string input_name) {
         string output_name;
         getline(in_file, output_name, ';');
 	
+	ofstream out_file;
+        out_file.open(output_name);
+
 	string junk;
         getline(in_file, junk);
 	
@@ -88,7 +88,10 @@ void set_width(string input_name) {
 }
 
 int main() {
-	set_width("input.txt");
+	string file_name;
+	cout << "Enter the input filename: ";
+	cin >> file_name;
+	set_width(file_name);
 
 	return 0;
 }
