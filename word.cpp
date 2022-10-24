@@ -17,55 +17,70 @@ void set_width(string input_name){
 	ifstream in_file;
 	in_file.open(input_name);
 	
-	ofstream out_file;
-	out_file.open("output.txt");
-	
 	string int_line;
 	getline(in_file, int_line, ';');
 	int width = stoi(int_line);
 
 	string output_name;
 	getline(in_file, output_name, ';');
+	
+	ofstream out_file;
+	out_file.open(output_name);
 
 	string junk;
 	getline(in_file, junk);
 
 	int count = 0;
 	string line;
+	bool new_line = false;
 	while(getline(in_file, line)) {
-		string word;
+		string word = "";
 		for (int i = 0; i < line.length(); i++) {
-			if (isspace(line[i])) {
-				if ((count + word.length() ) < width) {
+			if (line[line.length() - 1] == ' ') { //no space at the end = new line
+				new_line = false;
+			}
+			else {new_line = true;}
+
+			if (!isspace(line[i])) { //makes the word
+				word += line[i];
+				if (i == line.length() - 1) { //contains last word in a line
+					if ((count + word.length() ) < width) {
+						out_file << word << " ";
+						count += word.length() + 1;
+					}
+					else {
+						count = 0;
+						out_file << "\n" << word << " ";
+						count += word.length() + 1;
+					}
+					if (new_line == true) {
+						count = 0;
+						out_file << "\n";
+					}
+				}
+			}
+			else {
+				if ((count + word.length() + 1 ) < width) {
 					out_file << word << " ";
 					count += word.length() + 1;
 				}
-				else {
+				else if ((count + word.length() ) < width) {
+					out_file << word;
+					count += word.length();	
+				}
+				else { 
 					count = 0;
 					out_file << "\n" << word << " ";
-					count += word.length() + 1;
+					count += word.length() + 1;	
 				}
-
-				if (word[word.length() - 1] == '?') {
-                        		count = 0;
-					out_file << "\n";
-                		}
 				word = "";
 			}
-			else {
-				word += line[i];
-			}
-		}
-		out_file << word; //end word
-		if (word[word.length() - 1] == '?') {
-			count = 0;
-			out_file << "\n";
-		}
-		
+		}	
 		if (line.length() == 0) { //paragraphs
-			count = 0;
-			out_file << "\n\n";
-		}
+                        count = 0;
+			out_file << "\n";
+                }
+
 	}
 }
 
