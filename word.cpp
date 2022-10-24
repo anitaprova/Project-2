@@ -21,7 +21,6 @@ string add_spaces(int c, int w) {
 	return str;
 }
 
-
 void set_width(string input_name){
 	ifstream in_file;
 	in_file.open(input_name);
@@ -87,7 +86,7 @@ void set_width(string input_name){
 		}	
 		if (line.length() == 0) {
 			count = 0;
-			out_file << "\n";
+			out_file << " \n";
 		}
 	}
 }
@@ -97,6 +96,6 @@ int main() {
 	cout << "Enter the input filename: ";
 	cin >> file_name;
 	set_width(file_name);
-
+	
 	return 0;
 }	
