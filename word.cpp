@@ -95,8 +95,8 @@ void set_width(string input_name){
 int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
-	//cin >> file_name;
-	set_width("input.txt");
+	cin >> file_name;
+	set_width(file_name);
 
 	return 0;
 }	
