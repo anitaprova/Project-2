@@ -13,6 +13,15 @@ The program fixes the formatting of a file. It makes it so that each line only a
 
 using namespace std;
 
+string add_spaces(int c, int w) {
+	string str;
+	for(int i = c; i < w; i++) {
+		str += " ";
+	}
+	return str;
+}
+
+
 void set_width(string input_name){
 	ifstream in_file;
 	in_file.open(input_name);
@@ -49,13 +58,13 @@ void set_width(string input_name){
 						count += word.length() + 1;
 					}
 					else {
+						out_file << add_spaces(count, width) << "\n" << word << " ";
 						count = 0;
-						out_file << "\n" << word << " ";
 						count += word.length() + 1;
 					}
 					if (new_line == true) {
+						out_file << add_spaces(count, width) << "\n";
 						count = 0;
-						out_file << "\n";
 					}
 				}
 			}
@@ -69,26 +78,25 @@ void set_width(string input_name){
 					count += word.length();	
 				}
 				else { 
+					out_file << add_spaces(count, width) << "\n" << word << " ";
 					count = 0;
-					out_file << "\n" << word << " ";
 					count += word.length() + 1;	
 				}
 				word = "";
 			}
 		}	
-		if (line.length() == 0) { //paragraphs
-                        count = 0;
+		if (line.length() == 0) {
+			count = 0;
 			out_file << "\n";
-                }
-
+		}
 	}
 }
 
 int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
-	cin >> file_name;
-	set_width(file_name);
+	//cin >> file_name;
+	set_width("input.txt");
 
 	return 0;
 }	
