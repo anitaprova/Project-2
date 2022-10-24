@@ -15,7 +15,7 @@ using namespace std;
 
 string add_spaces(int c, int w) {
 	string str;
-	for(int i = c; i < w; i++) {
+	for(int i = c; i < w - 1; i++) {
 		str += " ";
 	}
 	return str;
@@ -86,7 +86,7 @@ void set_width(string input_name){
 		}	
 		if (line.length() == 0) {
 			count = 0;
-			out_file << " \n";
+			out_file << "\n";
 		}
 	}
 }
