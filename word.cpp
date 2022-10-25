@@ -44,15 +44,10 @@ void set_width(string input_name){
 	while(getline(in_file, line)) {
 		string word = "";
 		for (int i = 0; i < line.length(); i++) {
-			if (line[line.length() - 1] == ' ') { //no space at the end = new line
-				new_line = false;
-			}
-			else {new_line = true;}
-
 			if (!isspace(line[i])) { //makes the word
 				word += line[i];
 				if (i == line.length() - 1) { //contains last word in a line
-					if ((count + word.length() ) < width) {
+					if ((count + word.length() + 1 ) <= width) {
 						out_file << word << " ";
 						count += word.length() + 1;
 					}
@@ -61,11 +56,12 @@ void set_width(string input_name){
 						count = 0;
 						count += word.length() + 1;
 					}
-					if (new_line == true) {
+
+					if(i == line.length() - 1 && (count + word.length() < width) ) {
 						out_file << add_spaces(count, width) << "\n";
 						count = 0;
 					}
-				}
+				}			
 			}
 			else {
 				if ((count + word.length() + 1 ) < width) {
