@@ -82,6 +82,7 @@ void set_width(string input_name){
 		}	
 		if (line.length() == 0) {
 			count = 0;
+			out_file << add_spaces(count, width);
 			out_file << "\n";
 		}
 	}
