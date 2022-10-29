@@ -8,7 +8,7 @@ The program fixes the formatting of a file. It makes it so that each line only a
 
 #include <iostream>
 #include <sstream>
-#include<string>
+#include <string>
 #include <fstream>
 #include <cctype>
 
@@ -44,15 +44,28 @@ void set_width(string input_name) {
 	while(getline(in_file, line)) { //getting each line 
 		stringstream s(line);
 		string word;
-		while(s >> word) { //getting each word
-			if(word.length() + count + 1 < width) {
-				out_file << word << " ";
-				count += word.length() + 1;
+		string arr[line.length()];
+		int j = 0;
+		while (s >> word) {
+			arr[j] = word; //put each word into array
+			j++;
+			cout << word << " ";
+		}
+		
+		for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {	
+			if(arr[i].length() + count + 1 < width) {
+				out_file << arr[i] << " ";
+				count += arr[i].length() + 1;
 			}
 			else {
-				out_file << add_spaces(count, width) << "\n" << word << " ";
+				out_file << add_spaces(count, width) << "\n" << arr[i] << " ";
 				count = 0;
-				count += word.length() + 1;
+				count += arr[i].length() + 1;
+			}
+			
+			if (i == sizeof(arr)/sizeof(arr[0]) - 1 && count + arr[i].length() < width){
+				out_file << add_spaces(count, width) << "\n";
+				count = 0;
 			}
 		}
 	}
