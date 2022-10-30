@@ -41,35 +41,68 @@ void set_width(string input_name) {
 	
 	int count = 0;
 	string line;
+	string leftover;
+	string output;
 	while(getline(in_file, line)) { //getting each line 
-		stringstream s(line);
-		string word;
-		string arr[line.length()];
-		int j = 0;
-		while (s >> word) {
-			arr[j] = word; //put each word into array
-			j++;
-			cout << word << " ";
+		if (line.length() == 0) {
+			output += "\n";
 		}
 		
-		for (int i = 0; i < sizeof(arr)/sizeof(arr[0]); i++) {	
-			if(arr[i].length() + count + 1 < width) {
-				out_file << arr[i] << " ";
-				count += arr[i].length() + 1;
+		stringstream s(line);
+		string word;
+		while (s >> word) {
+			if (leftover.length() + count + word.length() + 1 < width) {
+				output += word + " ";
+				count += word.length() + 1;
 			}
-			else {
-				out_file << add_spaces(count, width) << "\n" << arr[i] << " ";
-				count = 0;
-				count += arr[i].length() + 1;
+			else if (leftover.length() + count + word.length() < width) {
+				output += word;
+				count += word.length();
 			}
-			
-			if (i == sizeof(arr)/sizeof(arr[0]) - 1 && count + arr[i].length() < width){
-				out_file << add_spaces(count, width) << "\n";
-				count = 0;
+			else { // too big
+				leftover += word + " ";
+			}		
+		}
+		output += "\n";
+		count = 0;
+		if (leftover.length() < width) {
+			output += leftover;
+			count += leftover.length();
+			leftover = "";
+		}
+		else { //if leftover becomes too big
+			stringstream s2(leftover);
+			string str;
+			while (s2 >> str) {
+				if(count + str.length() + 1 < width) {
+					output += str + " ";
+					count += str.length() + 1;
+				}
+				else if (count + str.length() < width) {
+					output += str;
+					count += str.length();
+				}
+				else {
+					output += "\n";
+					count = 0;
+					output += str + " ";
+					count += str.length() + 1;
+				}
 			}
+			leftover = "";
 		}
 	}
-
+	istringstream f(output);
+	string final_output;
+	string spacing;
+	while (getline(f, spacing)) {
+		final_output += spacing;
+		if (spacing.length() < width) {
+			final_output += add_spaces(spacing.length(), width);
+		}
+		final_output += "\n";
+	}
+	out_file << final_output;
 }
 
 int main() {
@@ -80,3 +113,6 @@ int main() {
 
 	return 0;
 }
+
+
+
