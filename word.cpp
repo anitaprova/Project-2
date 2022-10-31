@@ -92,7 +92,7 @@ void set_width(string input_name) {
 			leftover = "";
 		}
 	}
-	istringstream f(output);
+	/*istringstream f(output); //does spacing at the end
 	string final_output;
 	string spacing;
 	while (getline(f, spacing)) {
@@ -101,8 +101,8 @@ void set_width(string input_name) {
 			final_output += add_spaces(spacing.length(), width);
 		}
 		final_output += "\n";
-	}
-	out_file << final_output;
+	} */
+	out_file << output;
 }
 
 /*bool isCap(string str) {
