@@ -28,7 +28,7 @@ void set_width(string input_name) {
 	
 	string int_line;
 	getline(in_file, int_line, ';');
-	int width = stoi(int_line) - 1;
+	int width = stoi(int_line);
 	
 	string output_name;
 	getline(in_file, output_name, ';');
@@ -92,7 +92,7 @@ void set_width(string input_name) {
 			leftover = "";
 		}
 	}
-	/*istringstream f(output);
+	istringstream f(output);
 	string final_output;
 	string spacing;
 	while (getline(f, spacing)) {
@@ -101,18 +101,40 @@ void set_width(string input_name) {
 			final_output += add_spaces(spacing.length(), width);
 		}
 		final_output += "\n";
-	}*/
-	out_file << output;
+	}
+	out_file << final_output;
 }
+
+/*bool isCap(string str) {
+	bool bol =  true;
+	for (int i = 0; i < str.length(); i++) {
+			if(str[i] >= 'A' && str[i] <= 'Z') {
+				bol = false;
+		}	
+	}
+	
+	return bol;
+} 
+
+void justify(string input_file) {
+	ifstream in_file;
+	infile.open(input_file);
+
+	string width;
+	getline(in_file, width, ';');
+
+	string output_name;
+	getline(in_file, output_name, ';');
+	
+}
+
+*/
 
 int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
 	cin >> file_name;
-	set_width(file_name);	
+	set_width(file_name);
 
 	return 0;
 }
-
-
-
