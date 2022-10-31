@@ -16,7 +16,7 @@ using namespace std;
 
 string add_spaces(int c, int w) {
 	string str;
-	for(int i = c; i < w; i++) {
+	for(int i = c; i < w-1; i++) {
 		str += " ";
 	}
 	return str;
