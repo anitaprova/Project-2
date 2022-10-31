@@ -61,7 +61,7 @@ void set_width(string input_name) {
 			}
 			else { // too big
 				leftover += word + " ";
-			}		
+			}
 		}
 		output += "\n";
 		count = 0;
