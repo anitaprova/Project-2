@@ -16,7 +16,7 @@ using namespace std;
 
 string add_spaces(int c, int w) {
 	string str;
-	for(int i = c; i < w-1; i++) {
+	for(int i = c; i < w; i++) {
 		str += " ";
 	}
 	return str;
@@ -28,8 +28,8 @@ void set_width(string input_name) {
 	
 	string int_line;
 	getline(in_file, int_line, ';');
-	int width = stoi(int_line);
-
+	int width = stoi(int_line) - 1;
+	
 	string output_name;
 	getline(in_file, output_name, ';');
 	
@@ -92,7 +92,7 @@ void set_width(string input_name) {
 			leftover = "";
 		}
 	}
-	istringstream f(output);
+	/*istringstream f(output);
 	string final_output;
 	string spacing;
 	while (getline(f, spacing)) {
@@ -101,8 +101,8 @@ void set_width(string input_name) {
 			final_output += add_spaces(spacing.length(), width);
 		}
 		final_output += "\n";
-	}
-	out_file << final_output;
+	}*/
+	out_file << output;
 }
 
 int main() {
