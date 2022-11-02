@@ -63,8 +63,17 @@ void set_width(string input_name) {
 				leftover += word + " ";
 			}
 		}
-		output += "\n";
-		count = 0;
+		cout << leftover << endl;
+		if (count + leftover.length() < width) { //if nothing else new line
+			output += "\n";
+			count = 0;
+		}
+
+		if (leftover != "") {
+			output += "\n";
+			count = 0;
+		}
+
 		if (leftover.length() < width) {
 			output += leftover;
 			count += leftover.length();
@@ -92,16 +101,6 @@ void set_width(string input_name) {
 			leftover = "";
 		}
 	}
-	/*istringstream f(output); //does spacing at the end
-	string final_output;
-	string spacing;
-	while (getline(f, spacing)) {
-		final_output += spacing;
-		if (spacing.length() < width) {
-			final_output += add_spaces(spacing.length(), width);
-		}
-		final_output += "\n";
-	} */
 	out_file << output;
 }
 
