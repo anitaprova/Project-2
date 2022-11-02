@@ -63,7 +63,6 @@ void set_width(string input_name) {
 				leftover += word + " ";
 			}
 		}
-		cout << leftover << endl;
 		if (count + leftover.length() < width) { //if nothing else new line
 			output += "\n";
 			count = 0;
