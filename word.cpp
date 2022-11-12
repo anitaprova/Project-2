@@ -46,8 +46,10 @@ void set_width(string input_name) {
 	while(getline(in_file, line)) { //getting each line 
 		if (line.length() == 0) {
 			output += "\n";
-		}
-		
+			count = 0;
+		} 
+		else { 
+			
 		stringstream s(line);
 		string word;
 		while (s >> word) {
@@ -99,15 +101,16 @@ void set_width(string input_name) {
 			}
 			leftover = "";
 		}
-	}
+		}
+	} //end of getline
 	out_file << output;
 }
 
-/*bool isCap(string str) {
+bool isCap(string str) {
 	bool bol =  true;
 	for (int i = 0; i < str.length(); i++) {
-			if(str[i] >= 'A' && str[i] <= 'Z') {
-				bol = false;
+		if(str[i] >= 'A' && str[i] <= 'Z') {
+			bol = false;
 		}	
 	}
 	
@@ -116,17 +119,23 @@ void set_width(string input_name) {
 
 void justify(string input_file) {
 	ifstream in_file;
-	infile.open(input_file);
+	in_file.open(input_file);
 
 	string width;
 	getline(in_file, width, ';');
 
+	string body;
+	getline(in_file, width, ';');
+
+	string header;
+	getline(in_file, width, ';');
+	
 	string output_name;
 	getline(in_file, output_name, ';');
 	
 }
 
-*/
+
 
 int main() {
 	string file_name;
