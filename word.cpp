@@ -22,6 +22,18 @@ string add_spaces(int c, int w) {
 	return str;
 }
 
+int num_line(string filename) { //total lines in a file
+	ifstream in_file;
+	in_file.open(filename);
+	
+	int count = 0;
+	string line;
+	while (getline(in_file, line)) {
+		count++;
+	}
+	return count - 1;
+}
+
 void set_width(string input_name) {
 	ifstream in_file;
 	in_file.open(input_name);
@@ -40,10 +52,12 @@ void set_width(string input_name) {
 	getline(in_file, junk);
 	
 	int count = 0;
+	int line_count = 0;
 	string line;
 	string leftover;
 	string output;
 	while(getline(in_file, line)) { //getting each line 
+		line_count++;
 		if (line.length() == 0) {
 				output += "\n\n";
 				count = 0;
@@ -66,7 +80,7 @@ void set_width(string input_name) {
 			}
 		}
 
-		if (count + leftover.length() < width && leftover.length() == 0) { //if nothing else on the line, new line
+		if (line_count != num_line(input_name) && count + leftover.length() < width && leftover.length() == 0) { //if nothing else on the line, new line
 			output += "\n";
 			count = 0;
 		}
@@ -139,15 +153,13 @@ void justify(string input_file) {
 
 }
 
-
-
 int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
-	//cin >> file_name;
-	//set_width(filename);
-	set_width("input.txt");
-	set_width("input3.txt");
+	cin >> file_name;
+	set_width(file_name);
+	//set_width("input.txt");
+	//set_width("input3.txt");
 
 	return 0;
 }
