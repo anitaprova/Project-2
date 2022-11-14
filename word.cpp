@@ -56,11 +56,19 @@ void set_width(string input_name) {
 	string line;
 	string leftover;
 	string output;
+	bool prev = false;
 	while(getline(in_file, line)) { //getting each line 
 		line_count++;
 		if (line.length() == 0) {
-				output += "\n\n";
-				count = 0;
+				if (prev == false) {
+					output += "\n\n";
+					count = 0;
+				}
+				else {
+					output += "\n";
+					count = 0;
+					prev = false;
+				}
 		} 
 		else { 
 			
@@ -83,11 +91,13 @@ void set_width(string input_name) {
 		if (line_count != num_line(input_name) && count + leftover.length() < width && leftover.length() == 0) { //if nothing else on the line, new line
 			output += "\n";
 			count = 0;
+			prev = true;
 		}
 		
 		if (count + leftover.length() > width) { //if it overflows then new line
 			output += "\n";
 			count = 0;
+			prev = false;
 		}
 
 		if (leftover.length() < width) {
