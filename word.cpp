@@ -14,6 +14,17 @@ The program fixes the formatting of a file. It makes it so that each line only a
 
 using namespace std;
 
+long mystoi(const char s)
+{
+    long i;
+    i = 0;
+    if(s >= '0' && s <= '9')
+    {
+        i = i * 10 + (s - '0');
+    }
+    return i;
+}
+
 string add_spaces(int c, int w) {
 	string str;
 	for(int i = c; i < w; i++) {
@@ -38,14 +49,19 @@ void set_width(string input_name) {
 	ifstream in_file;
 	in_file.open(input_name);
 	
-	string int_line;
+	string int_line; //check if each part is an int 
 	getline(in_file, int_line, ';');
+	int width = 0;
+	int tens = 0;
+	int ones = 0;
 	for (int i = 0; i < int_line.length(); i++) {
-		if (isdigit(int_line[i]) == false) {
-			cout << "NOT INT";
+		if (isdigit(int_line[i]) == true) {
+			ones = mystoi(int_line[i]);
 		}
 	}
-	int width = stoi(int_line);
+	tens = mystoi(int_line[0]);
+	width = tens * 10 + ones;
+	//cout << width;
 	
 	string output_name;
 	getline(in_file, output_name, ';');
@@ -163,9 +179,40 @@ void justify(string input_file) {
 	string output_name;
 	getline(in_file, output_name, ';');
 	
-	//if()
+	string line;
+	while(getline(in_file, line))
+	if(width == "left") {
+		left(line, width);
+	}
+	else if(width == "right") {
+		right(line, width);
+	}
+	else if(width == "center") {
+		center(line, width);
+	}
+}
 
+string left(string line, int w){
+	string s = "";
+	for(int i = 0; i < w-line.length(); i++) {
+		s += " ";
+	}	
+	s += line;
+	return s;
+}
 
+string right(string line, int w) {
+	return line;
+}
+
+string center(string line, int w) { //need to fix
+	string s = "";
+	for(int i = 0; i < w-line.length(); i++) {
+		s += " ";
+	}	
+	s += line;
+
+	return s;
 }
 */
 
