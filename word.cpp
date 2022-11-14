@@ -40,6 +40,11 @@ void set_width(string input_name) {
 	
 	string int_line;
 	getline(in_file, int_line, ';');
+	for (int i = 0; i < int_line.length(); i++) {
+		if (isdigit(int_line[i]) == false) {
+			cout << "NOT INT";
+		}
+	}
 	int width = stoi(int_line);
 	
 	string output_name;
@@ -131,7 +136,7 @@ void set_width(string input_name) {
 	out_file << output;
 }
 
-bool isCap(string str) {
+/*bool isCap(string str) {
 	bool bol =  true;
 	for (int i = 0; i < str.length(); i++) {
 		if(str[i] >= 'A' && str[i] <= 'Z') {
@@ -162,6 +167,7 @@ void justify(string input_file) {
 
 
 }
+*/
 
 int main() {
 	string file_name;
