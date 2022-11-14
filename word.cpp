@@ -73,7 +73,6 @@ void set_width(string input_name) {
 				leftover += word + " ";
 			}
 		}
-		cout << leftover << endl;
 		if (count + leftover.length() < width) { //if nothing else on the line, new line
 			output += "\n";
 			prev = true;
@@ -147,6 +146,9 @@ void justify(string input_file) {
 	string output_name;
 	getline(in_file, output_name, ';');
 	
+
+
+
 }
 
 
@@ -154,9 +156,9 @@ void justify(string input_file) {
 int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
-	//cin >> file_name;
-	set_width("input.txt");
-	set_width("input3.txt");
+	cin >> file_name;
+	set_width(file_name);
+	//set_width("input3.txt");
 
 	return 0;
 }
