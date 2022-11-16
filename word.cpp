@@ -356,9 +356,9 @@ int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
 	cin >> file_name;
-	set_width(file_name);
+	//set_width(file_name);
 	//justify("input.txt");
-	//justify(file_name);
+	justify(file_name);
 
 	return 0;
 }
