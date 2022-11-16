@@ -14,6 +14,18 @@ The program fixes the formatting of a file. It makes it so that each line only a
 
 using namespace std;
 
+string removeNullChars(std::string line) {
+    string null_less_line = "";
+
+    for(int i = 0; i < line.length(); i++) {
+        if(line[i] != '\0') {
+            null_less_line += line[i];
+        }
+    }
+
+    return null_less_line;
+}
+
 long mystoi(const char s)
 {
     long i;
@@ -149,7 +161,8 @@ void set_width(string input_name) {
 		}
 		}
 	} //end of getline
-	out_file << output;
+
+	out_file << removeNullChars(output);
 }
 
 void set_width(string input_name, string temp, int width) {
@@ -343,9 +356,9 @@ int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
 	cin >> file_name;
-	//set_width(file_name);
+	set_width(file_name);
 	//justify("input.txt");
-	justify(file_name);
+	//justify(file_name);
 
 	return 0;
 }
