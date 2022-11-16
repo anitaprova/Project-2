@@ -252,7 +252,7 @@ void set_width(string input_name, string temp, int width) {
                 }
                 }
         } //end of getline
-        out_file << output;
+        out_file << removeNullChars(output);
 }
 
 bool isCap(string str) { //checks if string is all caps
