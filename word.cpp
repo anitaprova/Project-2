@@ -152,77 +152,199 @@ void set_width(string input_name) {
 	out_file << output;
 }
 
-/*bool isCap(string str) {
-	bool bol =  true;
+void set_width(string input_name, string temp, int width) {
+        ifstream in_file;
+        in_file.open(input_name);
+
+        ofstream out_file;
+        out_file.open(temp);
+
+	string junk;
+	getline(in_file, junk);
+
+        int count = 0;
+        int line_count = 0;
+        string line;
+        string leftover;
+        string output;
+        bool prev = false;
+        while(getline(in_file, line)) { //getting each line
+                line_count++;
+                if (line.length() == 0) {
+                                if (prev == false) {
+                                        output += "\n\n";
+                                        count = 0;
+                                }
+                                else {
+                                        output += "\n";
+                                        count = 0;
+                                        prev = false;
+                                }
+                }
+                else {
+
+                stringstream s(line);
+                string word;
+                while (s >> word) {
+                        if (leftover.length() + count + word.length() + 1 < width) {
+                                output += word + " ";
+                                count += word.length() + 1;
+                        }
+                        else if (leftover.length() + count + word.length() < width) {
+                                output += word;
+                                count += word.length();
+                        }
+                        else { // too big
+                                leftover += word + " ";
+                        }
+                }
+
+                if (line_count != num_line(input_name) && count + leftover.length() < width && leftover.length() == 0) { //if nothing else on the line, new line
+                        output += "\n";
+                        count = 0;
+                        prev = true;
+                }
+
+                if (count + leftover.length() > width) { //if it overflows then new line
+                        output += "\n";
+                        count = 0;
+                        prev = false;
+                }
+
+                if (leftover.length() < width) {
+                        output += leftover;
+                        count += leftover.length();
+                        leftover = "";
+                }
+                else { //if leftover becomes too big
+                        stringstream s2(leftover);
+                        string str;
+                        while (s2 >> str) {
+                                if(count + str.length() + 1 < width) {
+                                        output += str + " ";
+                                        count += str.length() + 1;
+                                }
+                                else if (count + str.length() < width) {
+                                        output += str;
+                                        count += str.length();
+                                }
+                                else {
+                                        output += "\n";
+                                        count = 0;
+                                        output += str + " ";
+                                        count += str.length() + 1;
+                                }
+                        }
+                        leftover = "";
+                }
+                }
+        } //end of getline
+        out_file << output;
+}
+
+bool isCap(string str) { //checks if string is all caps
 	for (int i = 0; i < str.length(); i++) {
-		if(str[i] >= 'A' && str[i] <= 'Z') {
-			bol = false;
+		if(str[i] < 'A' || str[i] > 'Z') {
+			return false;
 		}	
 	}
-	
-	return bol;
-} 
+
+	return true;
+}
+
+string right(string line, int w){
+        string s = "";
+        for(int i = 0; i < w-line.length(); i++) {
+                s += " ";
+        }
+        s += line;
+        
+	return s;
+}
+
+string left(string line, int w) {
+        return line;
+}
+
+string center(string line, int w) { //need to fix
+        string s = "";
+        for(int i = 0; i < (w-line.length())/2; i++) {
+                s += " ";
+        }
+        s += line;
+
+        return s;
+}
 
 void justify(string input_file) {
 	ifstream in_file;
 	in_file.open(input_file);
-
-	string width;
-	getline(in_file, width, ';');
-
+	
+	string int_line;
+	getline(in_file, int_line, ';');
+	int width;
+	int tens = 0;
+        int ones = 0;
+        for (int i = 0; i < int_line.length(); i++) {
+                if (isdigit(int_line[i]) == true) {
+                        ones = mystoi(int_line[i]);
+                }
+        }
+        tens = mystoi(int_line[0]);
+        width = tens * 10 + ones;
+	
 	string body;
-	getline(in_file, width, ';');
+	getline(in_file, body, ';');
 
 	string header;
-	getline(in_file, width, ';');
-	
+	getline(in_file, header, ';');
+
 	string output_name;
-	getline(in_file, output_name, ';');
+        getline(in_file, output_name, ';');
+
+	set_width(input_file, "tempfile", width);
+	ifstream temp;
+	temp.open("tempfile"); //should contain the set_width stuff now
 	
+	ofstream out_file;
+	out_file.open(output_name);
+	string output;
+
 	string line;
-	while(getline(in_file, line))
-	if(width == "left") {
-		left(line, width);
+	while(getline(temp, line)) {
+		if(isCap(line) == true) { //header alert
+			if(header == "left") {
+				output += left(line, width);
+			}
+			else if(header == "right") {
+				output += right(line, width);
+			}
+			else if(header == "center") {
+				output += center(line, width);
+			}
+		}
+		else { //body
+			if(body == "left") {
+                                output += left(line, width);
+                        }
+                        else if(body == "right") {
+                                output += right(line, width);
+                        }
+                        else if(body == "center") {
+                                output += center(line, width);
+                        }
+		}
+		output += "\n";
 	}
-	else if(width == "right") {
-		right(line, width);
-	}
-	else if(width == "center") {
-		center(line, width);
-	}
+	out_file << output;
 }
-
-string left(string line, int w){
-	string s = "";
-	for(int i = 0; i < w-line.length(); i++) {
-		s += " ";
-	}	
-	s += line;
-	return s;
-}
-
-string right(string line, int w) {
-	return line;
-}
-
-string center(string line, int w) { //need to fix
-	string s = "";
-	for(int i = 0; i < w-line.length(); i++) {
-		s += " ";
-	}	
-	s += line;
-
-	return s;
-}
-*/
 
 int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
-	cin >> file_name;
-	set_width(file_name);
-	//set_width("input.txt");
-	//set_width("input3.txt");
+	//cin >> file_name;
+	//set_width(file_name);
+	justify("input.txt");
 
 	return 0;
 }
