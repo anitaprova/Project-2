@@ -59,8 +59,10 @@ string remove_end_spaces(string line) {
 	string return_string;
 	while(getline(g, s)) {
 		int index = line.find_last_not_of(" ");
-		return_string += s.substr(0, index + 1);		
+		return_string += s.substr(0, index + 1);
+		return_string += "\n";		
 	}
+	g.close();
 	return return_string;
 }
 
@@ -181,7 +183,6 @@ void set_width(string input_name) {
 		}
 	} //end of getline
 	output = remove_end_spaces(output);	
-	cout << output;
 	out_file << removeNullChars(output);
 }
 
@@ -376,9 +377,9 @@ int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
 	cin >> file_name;
-	//set_width(file_name);
+	set_width(file_name);
 	//justify("input.txt");
-	justify(file_name);
+	//justify(file_name);
 
 	return 0;
 }
