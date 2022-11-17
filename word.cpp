@@ -279,6 +279,7 @@ void set_width(string input_name, string temp, int width) {
                 }
                 }
         } //end of getline
+		output = remove_end_spaces(output);
         out_file << removeNullChars(output);
 }
 
@@ -312,7 +313,9 @@ string center(string line, int w) { //need to fix
                 s += " ";
         }
         s += line;
-
+		for(int i = 0; i < (w-line.length())/2; i++) {
+			s += " ";
+		}
         return s;
 }
 
@@ -365,14 +368,14 @@ void justify(string input_file) {
 		}
 		else { //body
 			if(body == "left") {
-                                output += left(line, width);
-                        }
-                        else if(body == "right") {
-                                output += right(line, width);
-                        }
-                        else if(body == "center") {
-                                output += center(line, width);
-                        }
+            	output += left(line, width);
+            }
+            else if(body == "right") {
+            	output += right(line, width);
+            }
+            else if(body == "center") {
+            	output += center(line, width);
+            }
 		}
 		output += "\n";
 	}
@@ -383,9 +386,9 @@ int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
 	cin >> file_name;
-	set_width(file_name);
+	//set_width(file_name);
 	//justify("input.txt");
-	//justify(file_name);
+	justify(file_name);
 
 	return 0;
 }
