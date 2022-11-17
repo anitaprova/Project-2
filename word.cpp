@@ -282,8 +282,10 @@ void set_width(string input_name, string temp, int width) {
 
 bool isCap(string str) { //checks if string is all caps
 	for (int i = 0; i < str.length(); i++) {
-		if(str[i] < 'A' || str[i] > 'Z') {
-			return false;
+		if ((str[i] >= 'A' && str[i] <='Z') || (str[i] >= 91 && str[i] <=122)) { //checks if its a letter
+			if(str[i] < 'A' || str[i] > 'Z') {
+				return false;
+			}
 		}	
 	}
 	return true;
