@@ -62,8 +62,6 @@ string remove_end_spaces(string line) {
 		{
 			s = s.substr(0, s.length()-1);
 		}
-		//int index = line.find_last_not_of(" ");
-		//return_string += s.substr(0, index - 8) + "\n";		
 		return_string += s + "\n";
 	}
 
@@ -100,7 +98,6 @@ void set_width(string input_name) {
 	}
 	tens = mystoi(int_line[0]);
 	width = tens * 10 + ones;
-	//cout << width;
 	
 	string output_name;
 	getline(in_file, output_name, ';');
@@ -199,8 +196,8 @@ void set_width(string input_name, string temp, int width) {
         ofstream out_file;
         out_file.open(temp);
 
-	string junk;
-	getline(in_file, junk);
+		string junk;
+		getline(in_file, junk);
 
         int count = 0;
         int line_count = 0;
@@ -289,22 +286,24 @@ bool isCap(string str) { //checks if string is all caps
 			return false;
 		}	
 	}
-
 	return true;
 }
 
 string right(string line, int w){
-        string s = "";
-        for(int i = 0; i < w-line.length(); i++) {
-                s += " ";
-        }
-        s += line;
-        
+	string s = "";
+    for(int i = 0; i < w-line.length(); i++) {
+        s += " ";
+    }
+    s += line;    
 	return s;
 }
 
 string left(string line, int w) {
-        return line;
+	string spaces;
+	for(int i = 0; i < w-line.length(); i++) {
+		spaces += " ";
+	}
+	return line + spaces;
 }
 
 string center(string line, int w) { //need to fix
@@ -343,7 +342,7 @@ void justify(string input_file) {
 	getline(in_file, header, ';');
 
 	string output_name;
-        getline(in_file, output_name, ';');
+    getline(in_file, output_name, ';');
 
 	set_width(input_file, "tempfile", width);
 	ifstream temp;
@@ -382,6 +381,57 @@ void justify(string input_file) {
 	out_file << output;
 }
 
+/*string double_space(string line){
+	return "";
+}
+
+string fill(string line){
+	return "";
+}
+
+void third (string input_file) {
+	ifstream in_file;
+	in_file.open(input_file);
+	
+	string int_line;
+	getline(in_file, int_line, ';');
+	int width;
+	int tens = 0;
+    int ones = 0;
+        for (int i = 0; i < int_line.length(); i++) {
+                if (isdigit(int_line[i]) == true) {
+                        ones = mystoi(int_line[i]);
+                }
+        }
+        tens = mystoi(int_line[0]);
+        width = tens * 10 + ones;
+	
+	string body;
+	getline(in_file, body, ';');
+
+	string header;
+	getline(in_file, header, ';');
+
+	bool ds; //double space
+	getline(in_file, ds);
+
+	bool f;
+	getline(in_file, f);
+
+	string output_name;
+    getline(in_file, output_name, ';');
+
+	set_width(input_file, "tempfile", width);
+	ifstream temp;
+	temp.open("tempfile"); //should contain the set_width stuff now
+	
+	ofstream out_file;
+	out_file.open(output_name);
+	string output;
+	
+	
+}
+*/
 int main() {
 	string file_name;
 	cout << "Enter the input filename: ";
