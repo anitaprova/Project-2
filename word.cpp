@@ -223,11 +223,11 @@ void set_width(string input_name, string temp, int width) {
                 stringstream s(line);
                 string word;
                 while (s >> word) {
-                        if (leftover.length() + count + word.length() + 1 < width) {
+                        if (leftover.length() + count + word.length() + 1 <= width) {
                                 output += word + " ";
                                 count += word.length() + 1;
                         }
-                        else if (leftover.length() + count + word.length() < width) {
+                        else if (leftover.length() + count + word.length() <= width) {
                                 output += word;
                                 count += word.length();
                         }
@@ -236,19 +236,19 @@ void set_width(string input_name, string temp, int width) {
                         }
                 }
 
-                if (line_count != num_line(input_name) && count + leftover.length() < width && leftover.length() == 0) { //if nothing else on the line, new line
+                if (line_count != num_line(input_name) && count + leftover.length() <= width && leftover.length() == 0) { //if nothing else on the line, new line
                         output += "\n";
                         count = 0;
                         prev = true;
                 }
 
-                if (count + leftover.length() > width) { //if it overflows then new line
+                if (count + leftover.length() >= width) { //if it overflows then new line
                         output += "\n";
                         count = 0;
                         prev = false;
                 }
 
-                if (leftover.length() < width) {
+                if (leftover.length() <= width) {
                         output += leftover;
                         count += leftover.length();
                         leftover = "";
@@ -257,11 +257,11 @@ void set_width(string input_name, string temp, int width) {
                         stringstream s2(leftover);
                         string str;
                         while (s2 >> str) {
-                                if(count + str.length() + 1 < width) {
+                                if(count + str.length() + 1 <= width) {
                                         output += str + " ";
                                         count += str.length() + 1;
                                 }
-                                else if (count + str.length() < width) {
+                                else if (count + str.length() <= width) {
                                         output += str;
                                         count += str.length();
                                 }
