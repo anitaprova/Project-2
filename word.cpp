@@ -336,6 +336,7 @@ void justify(string input_file) {
         }
         tens = mystoi(int_line[0]);
         width = tens * 10 + ones;
+		width = width -1;
 	
 	string body;
 	getline(in_file, body, ';');
@@ -361,28 +362,28 @@ void justify(string input_file) {
 	while(getline(temp, line)) {
 		curr++;
 		if(line.length() != 0) {
-		if(isCap(line) == true) { //header alert
-			if(header == "left") {
-				output += left(line, width);
+			if(isCap(line) == true) { //header alert
+				if(header == "left") {
+					output += left(line, width);
+				}
+				else if(header == "right") {
+					output += right(line, width);
+				}
+				else if(header == "center") {
+					output += center(line, width);
+				}
 			}
-			else if(header == "right") {
-				output += right(line, width);
+			else { //body
+				if(body == "left") {
+            		output += left(line, width);
+            	}
+            	else if(body == "right") {
+            		output += right(line, width);
+            	}
+            	else if(body == "center") {
+            		output += center(line, width);
+            	}
 			}
-			else if(header == "center") {
-				output += center(line, width);
-			}
-		}
-		else { //body
-			if(body == "left") {
-            	output += left(line, width);
-            }
-            else if(body == "right") {
-            	output += right(line, width);
-            }
-            else if(body == "center") {
-            	output += center(line, width);
-            }
-		}
 		}
 		output += "\n";
 	}
