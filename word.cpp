@@ -11,6 +11,7 @@ The program fixes the formatting of a file. It makes it so that each line only a
 #include <string>
 #include <fstream>
 #include <cctype>
+#include <algorithm>
 
 using namespace std;
 
@@ -43,6 +44,24 @@ string add_spaces(int c, int w) {
 		str += " ";
 	}
 	return str;
+}
+
+string remove_end_spaces(string line) {
+	ofstream f;
+	f.open("temp");
+	f << line;
+	f.close();
+
+	ifstream g;
+	g.open("temp");
+	
+	string s;
+	string return_string;
+	while(getline(g, s)) {
+		int index = line.find_last_not_of(" ");
+		return_string += s.substr(0, index + 1);		
+	}
+	return return_string;
 }
 
 int num_line(string filename) { //total lines in a file
@@ -161,7 +180,8 @@ void set_width(string input_name) {
 		}
 		}
 	} //end of getline
-
+	output = remove_end_spaces(output);	
+	cout << output;
 	out_file << removeNullChars(output);
 }
 
