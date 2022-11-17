@@ -58,11 +58,17 @@ string remove_end_spaces(string line) {
 	string s;
 	string return_string;
 	while(getline(g, s)) {
-		int index = line.find_last_not_of(" ");
-		return_string += s.substr(0, index + 1);
-		return_string += "\n";		
+		while(s[s.length() - 1] == ' ')
+		{
+			s = s.substr(0, s.length()-1);
+		}
+		//int index = line.find_last_not_of(" ");
+		//return_string += s.substr(0, index - 8) + "\n";		
+		return_string += s + "\n";
 	}
+
 	g.close();
+	
 	return return_string;
 }
 
