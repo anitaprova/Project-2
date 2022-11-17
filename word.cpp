@@ -353,9 +353,14 @@ void justify(string input_file) {
 	ofstream out_file;
 	out_file.open(output_name);
 	string output;
-
+	
+	int number_lines = num_line("tempfile");
+	cout << number_lines;
+	int curr = 0;
 	string line;
 	while(getline(temp, line)) {
+		curr++;
+		if(line.length() != 0) {
 		if(isCap(line) == true) { //header alert
 			if(header == "left") {
 				output += left(line, width);
@@ -377,6 +382,7 @@ void justify(string input_file) {
             else if(body == "center") {
             	output += center(line, width);
             }
+		}
 		}
 		output += "\n";
 	}
